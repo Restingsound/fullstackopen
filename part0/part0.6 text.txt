@@ -1,22 +1,16 @@
 for use are https://www.websequencediagrams.com/
-https://www.websequencediagrams.com/cgi-bin/cdraw?lz=YnJvd3Nlci0-c2VydmVyOiBIVFRQIEdFVCBodHRwczovL3N0dWRpZXMuY3MuaGVsc2lua2kuZmkvZXhhbXBsZWFwcC9zcGEKADkGLS0-AEoHOiBIVE1MLWNvZGUKACBEbWFpbi5jc3MAVhMAEgkAgQlDc3BhLmoATBlqcwoKbm90ZSBvdmVyIACBYggAgVgIIHN0YXJ0cyBleGVjdXRpbmcganMAgXsGdGhhdCByZXF1ZXN0cyBKU09OIGRhdGEgZnJvbSAAgnMGIAplbmQgbm90ZQoAgWtFZGF0YS5qc29uAIMHE1t7IGNvbnRlbnQ6ICJpaHFkYWEiLCBkYXRlOiAiMjAyMS0wOC0yMyIgfSwgLi4uXQCBWB0AgWgGZXMgdGhlIGV2ZW50IGhhbmRsZXIAgW8IbmRlcnMAgVYFcyB0byBkaXNwbGF5AIFmCg&s=default
-
-browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
-server-->browser: HTML-code
-browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
-server-->browser: main.css
-browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleappspa.js
-server-->browser: main.js
+https://www.websequencediagrams.com/cgi-bin/cdraw?lz=bm90ZSBvdmVyIGJyb3dzZXI6CnVzZXIgY2xpY2tzIFNhdmUgYnV0dG9uCmVuZCBub3RlCgAhE2pzLWNvZGUgaW4AQAggYWRkcyBuZXcgaXRlbSAKdG8gbGlzdCBhbmQgdXBkYXRlcyB0aGUgZGlzcGxheWVkIEhUTUwAWwoAgQgHLT5zZXJ2ZXI6IEhUVFAgUE9TVCBodHRwczovL3N0dWRpZXMuY3MuaGVsc2lua2kuZmkvZXhhbXBsZWFwcC9uZXdfbm90ZV9zcGEKAEMGLS0-AIFiCABNBnJlc3BvbnNlIACBPAUyMDEAgVULAHUHADQHIHBhcnNlcyBKU09OIGRhdABLCCBwYXNzZXMgc2F2ZWQAFAUgaW50bwAeBS5qcwCCLwwKCg&s=default
 
 note over browser:
-browser starts executing js-code
-that requests JSON data from server 
+user clicks Save button
 end note
-
-browser->server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/data.json
-server-->browser: [{ content: "ihqdaa", date: "2021-08-23" }, ...]
-
 note over browser:
-browser executes the event handler
-that renders notes to display
+js-code in browser adds new item 
+to list and updates the displayed HTML
+end note
+browser->server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+server-->browser: HTTP response code 201
+note over server:
+server parses JSON data
+server passes saved data into data.json
 end note
