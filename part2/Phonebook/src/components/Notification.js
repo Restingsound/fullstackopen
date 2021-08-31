@@ -1,15 +1,10 @@
 import React from "react";
 
-const Notification = ({ eMessage, sMessage }) => {
-  if (eMessage === null && sMessage === null) {
+const Notification = ({ notification }) => {
+  if (notification === null) {
     return null;
   }
-  if (eMessage !== null) {
-    return <div className="error">{eMessage}</div>;
-  }
-  if (sMessage !== null) {
-    return <div className="success">{sMessage}</div>;
-  }
+  return <div className={notification.type}>{notification.message}</div>;
 };
 
 export default Notification;

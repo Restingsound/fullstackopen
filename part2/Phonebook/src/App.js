@@ -10,14 +10,20 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setNewFilter] = useState("");
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);
+  const [notification, setNotification] = useState(null);
 
   useEffect(() => {
     personService.getAll().then((initialPersons) => {
       setPersons(initialPersons);
     });
   }, []);
+
+  const notifyWith = (message, type = "success") => {
+    setNotification({ message, type });
+    setTimeout(() => {
+      setNotification(null);
+    }, 5000);
+  };
 
   const addPerson = (event) => {
     event.preventDefault();
@@ -36,10 +42,7 @@ const App = () => {
           );
           setNewName("");
           setNewNumber("");
-          setSuccessMessage(`Updated ${returnedPerson.name}`);
-          setTimeout(() => {
-            setSuccessMessage(null);
-          }, 5000);
+          notifyWith(`Updated ${returnedPerson.name}`);
         });
       }
     } else {
@@ -51,10 +54,7 @@ const App = () => {
         setPersons(persons.concat(returnedPerson));
         setNewName("");
         setNewNumber("");
-        setSuccessMessage(`Added ${returnedPerson.name}`);
-        setTimeout(() => {
-          setSuccessMessage(null);
-        }, 5000);
+        notifyWith(`Added ${returnedPerson.name}`);
       });
     }
   };
@@ -73,22 +73,17 @@ const App = () => {
 
   const handleDelete = (event) => {
     const person = persons.find((n) => n.name === event.target.name);
-    //console.log("delete", person.name);
     if (window.confirm(`Are you sure you want to delete ${person.name}?`)) {
-      //console.log(result);
       personService
         .deleteObject(person.id)
         .then(() => {
           setPersons(persons.filter((n) => n.id !== person.id));
         })
         .catch((error) => {
-          //alert(`the person '${person.name}' was already deleted from server`);
-          setErrorMessage(
-            `Information of ${person.name} has already been removed from the server`
+          notifyWith(
+            `Information of ${person.name} has already been removed from the server`,
+            "error"
           );
-          setTimeout(() => {
-            setErrorMessage(null);
-          }, 5000);
           setPersons(persons.filter((n) => n.id !== person.id));
         });
     }
@@ -97,7 +92,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification eMessage={errorMessage} sMessage={successMessage} />
+      <Notification notification={notification} />
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
       <h3>Add a new</h3>
       <PersonForm

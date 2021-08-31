@@ -1,0 +1,1 @@
+GET https://sm-phonebook-app.herokuapp.com/api/persons
