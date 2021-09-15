@@ -1,0 +1,12 @@
+PUT http://localhost:3003/api/blogs/6139868dabca83ab71eedb49
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYxMzAzOGI4OWNmMmEzNjExYzgxZmFmMSIsImlhdCI6MTYzMDU1MDc1MH0.g7xpYAectyeYDCl9G3Oir1B887b9rzIN7GC_m4qdmss
+
+{
+     "title": "Blog Title 7 For Testing Authorization Middleware Again", 
+     "author": "Mark Zuckerburg",
+     "url": "http://www.facebook.com/",
+     "likes": 2,
+     "userId": "613038b89cf2a3611c81faf1",
+     "id": "6139868dabca83ab71eedb49"
+}
